@@ -11,4 +11,3 @@ for i in mapping.keys():
     with open ('data/'+i+'.csv', 'wb') as f:
         f.write(mapping[i].content)
     print(i + ' downloaded.')
-    print('\n')
