@@ -36,7 +36,7 @@ def create_table(conn, query):
 def csv_sql(name, csv_fp, conn):
     df = pd.read_csv(csv_fp)
     df.columns = df.columns.str.strip()
-    df.to_sql(name, conn, if_exists='append')
+    df.to_sql(name, conn, if_exists='replace')
     #print(name + ' inserted.')
 
 
@@ -55,9 +55,9 @@ def main():
 
 
 if __name__ == '__main__':
-    mapping = {'country': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv'),
-               'states': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv'),
-               'counties': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')}
+    mapping = {'country': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us.csv'),
+               'states': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-states.csv'),
+               'counties': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv')}
 
     for i in mapping.keys():
         with open('data/' + i + '.csv', 'wb') as f:
