@@ -32,7 +32,7 @@ var x = d3.scaleLinear()
     .rangeRound([600, 860]);
 
 var color = d3.scaleThreshold()
-    .domain(d3.range(2, 10))
+    .domain(d3.range(0, 10))
     .range(d3.schemeBlues[9]);
 
 var g = svg.append("g")
@@ -59,7 +59,7 @@ g.append("text")
     .attr("fill", "#000")
     .attr("text-anchor", "start")
     .attr("font-weight", "bold")
-    .text("COVID-19 Death Rate");
+    .text("COVID-19 Death Rates");
 
 g.call(d3.axisBottom(x)
     .tickSize(13)
@@ -70,7 +70,7 @@ g.call(d3.axisBottom(x)
 
 var promises = [
   d3.json("https://d3js.org/us-10m.v1.json"),
-  d3.csv("https://gist.githubusercontent.com/svadivazhagu/78028944e4a2e519033c7c62fb2d85e1/raw/a5a8c2a46e28c62f84c04d6e0e202c92ada98162/cleaned_counties", function(d) { unemployment.set(d.fips, +d.death_rate); })
+  d3.tsv("fips_death.tsv", function(d) { unemployment.set(d.fips, +d.death_rate); })
 ]
 
 Promise.all(promises).then(ready)
@@ -81,10 +81,10 @@ function ready([us]) {
     .selectAll("path")
     .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
-      .attr("fill", function(d) { return color(d.rate = unemployment.get(d.fips)); })
+      .attr("fill", function(d) { return color(d.rate = unemployment.get(d.id)); })
       .attr("d", path)
     .append("title")
-      .text(function(d) { return d.death_rate + "%"; });
+      .text(function(d) { return d.rate + "%"; });
 
   svg.append("path")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))

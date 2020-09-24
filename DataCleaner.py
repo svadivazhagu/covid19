@@ -26,8 +26,7 @@ def choropleth_prep(fp):
     for i, row in df.iterrows():
         new_df.at[i, 'fips'] = str(int(df.at[i, 'fips'])).zfill(5)
         new_df.at[i, 'death_rate'] = df.at[i, 'death_rate']
-    print('done')
-    df.to_csv('data/cleaned/fips_death.csv', index=False)
+    new_df.to_csv('data/cleaned/fips_death.csv', index=False)
 
 if __name__ == '__main__':
     choropleth_prep('data/extracted/counties.csv')
