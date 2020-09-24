@@ -53,6 +53,14 @@ def main():
     else:
         print("Error, connection failed")
 
+    df = pd.read_csv('data/extracted/counties.csv')
+    for i, row in df.iterrows():
+        if df.at[i, 'fips'] != df.at[i, 'fips']:
+            df = df.drop(i)
+    # df.drop('Joplin', axis = 2)
+    # df.drop('Kansas City', axis =2)
+    df.to_csv('data/extracted/counties.csv', index=False)
+
 
 if __name__ == '__main__':
     mapping = {'country': re.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us.csv'),
@@ -65,3 +73,8 @@ if __name__ == '__main__':
         #print(i + ' downloaded.')
 
     main()
+
+
+#adding the fips code for Joplin, MO and Kansas City MO
+
+

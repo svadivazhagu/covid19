@@ -18,10 +18,16 @@ def choropleth_prep(fp):
         else:
             death_rate = round((deaths / cases * 100), 2 )
         df.at[i, 'death_rate'] = death_rate
-    df.to_csv('data/cleaned/cleaned_counties.csv', index=False)
 
-
-
+# New method to create a new dataframe due to the FIPS problem in the choropleth graph
+    new_df = pd.DataFrame()
+    new_df.insert(0, 'fips', '0')
+    new_df.insert(1, 'death_rate', '0.0')
+    for i, row in df.iterrows():
+        new_df.at[i, 'fips'] = str(int(df.at[i, 'fips'])).zfill(5)
+        new_df.at[i, 'death_rate'] = df.at[i, 'death_rate']
+    print('done')
+    df.to_csv('data/cleaned/fips_death.csv', index=False)
 
 if __name__ == '__main__':
     choropleth_prep('data/extracted/counties.csv')
