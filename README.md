@@ -4,15 +4,6 @@ to create a queriable API using Flask. After that, a web interface for the data 
 navigation, with data visualizations being provided alongside.
 
 ## TODO
-   - organize the data to be ready for the choropleth map
-   - write the choropleth map
- 
-
-## Changelog
-- Update DbHandler.py with the rest of the NYT data
-- Added support for cleaning the data 
-    - removing the 'Unknown' counties that had no fips/name
-        - `select fips, county, cases, deaths from counties where county != 'Unknown';
-`
- 
+   - start working on the crossfilter choropleth
+   - fix the color scaling for the basic choropleth map
 
