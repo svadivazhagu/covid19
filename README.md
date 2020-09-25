@@ -6,4 +6,4 @@ navigation, with data visualizations being provided alongside.
 ## TODO
    - start working on the crossfilter choropleth
    - fix the color scaling for the basic choropleth map
-
+   - add tracker for infections to see where the infectious hot zones
